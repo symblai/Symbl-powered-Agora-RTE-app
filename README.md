@@ -8,6 +8,8 @@ Symbl's APIs empower developers to enable:
 - **Conversation APIs** that provide a REST interface for managing and processing your conversation data.
 - **Summary UI** with a fully customizable and editable reference experience that indexes a searchable transcript and shows generated actionable insights, topics, timecodes, and speaker information.
 
+**This app is meant for demo purposes only , please feel free to report any issue in the issues section**
+
 <hr />
 
 ## Enable Symbl for Agora [RTE App][agorarte] 
