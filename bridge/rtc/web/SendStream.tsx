@@ -30,7 +30,7 @@ const getContent = (data) => {
  export const  SymblContext=React.createContext(null);
 export const StorageConsumer = SymblContext.Consumer;
 let m = new Map;
-let symbl;
+let symbl=null;
 let interTranscript=``;
 let interInsight=``;
 let interTopic=``;
@@ -48,6 +48,7 @@ export function getInterInsight(){
 
 }
 export async function SendStream(channelName,optionalUid,optionalInfo) {
+
 
     /////
 
@@ -92,6 +93,7 @@ export async function SendStream(channelName,optionalUid,optionalInfo) {
          window.localStorage.setItem("symblToken",data.accessToken);
     }
     else {
+        console.log("symbl token is already there");
         const res = null;//await fetch("https://api.symbl.ai/oauth2/token:generate",Options);
          data = window.localStorage.getItem("symblToken");//await res.json();
     }
@@ -112,7 +114,8 @@ export async function SendStream(channelName,optionalUid,optionalInfo) {
         //const tempAccesstoken ="eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjY2NjY2MDk1Njc0NjU0NzIiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiajRuOWZkYnk3dFE4bGtoZlBpeVJxM21UZ2twR0hrRXBAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjE5MzkzODgwLCJleHAiOjE2MTk0ODAyODAsImF6cCI6Imo0bjlmZGJ5N3RROGxraGZQaXlScTNtVGdrcEdIa0VwIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.VJ8SGx8WZskJ_KoqgzDglPqxDKby94UI48vKlU7V1OdeiCDFx7NFawpw5wSP9sPjdTGoIggwERcpV8o6EMGWKbS9CxogqB1Jb2iQYBhF8RFN8hrzyb39BtAWPDrGAkf7FXs4lxnwrEZbw8qt_qOeYoAVc7s0fiv88d91lCCX4EQMnRAWWo5cRp5BJkOwnc5po5ADcTaoVyxQuICGDp_BRS_aK9D1klRAXEA5czq7pGAEwGk_j-UbfRzMBLhJe-PfsCwIEMeQ-8vmhCc2o3MRi4D6HITzQcPASzYJ2o1nrX1Rq0OK0VZbARn0K3IVM7HFBBDRcVr8uc41XLx1YOIjvQ";
         Symbl.ACCESS_TOKEN = window.localStorage.getItem("symblToken");//data.accessToken;
         //window.localStorage.setItem("symbltoken",Symbl.ACCESS_TOKEN);
-        symbl = new Symbl(config);
+
+    symbl = new Symbl(config);
         const insightHandler = {
             onInsightCreated: (insight) => {
                 console.log('Insight created', insight, insight.type);
@@ -264,7 +267,7 @@ export async function SendStream(channelName,optionalUid,optionalInfo) {
 
                 //setClosedCaptionResponse(caption);
                 if(document.getElementById("tes")!=null) {
-                    document.getElementById("tes").innerText = getContent(caption);
+                    document.getElementById("tes").innerText = caption.data.user.name+":"+getContent(caption);
                 }
 
                 if (videoElementContainer) {
@@ -276,8 +279,8 @@ export async function SendStream(channelName,optionalUid,optionalInfo) {
         symbl.subscribeToCaptioningEvents(captioningHandler);
 
     let sS = await symbl.start();
-    window.localStorage.setItem("conversationId",sS._conversationId);
-    console.log("type of sS"+sS.constructor.name);
+
+
 
 
 
@@ -302,7 +305,7 @@ export async function SendStream(channelName,optionalUid,optionalInfo) {
 
 
 
-    return sS;
+    return {sS,symbl};
    /* return (
         <SymblContext.Provider
             value={{
