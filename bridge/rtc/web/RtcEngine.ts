@@ -17,6 +17,7 @@ X muteRemoteVideoStream
 import AgoraRTC from 'agora-rtc-sdk';
 import {SendStream} from './SendStream';
 import {SymblSocket} from '../web/symbl';
+import {Symbl} from '../web/symbl';
 //import {SendStream} from '../../../src/subComponents/SymblTranscript';
 //import {SendStream} from '../../../src/pages/VideoCall'
 import type { RtcEngineEvents, Subscription } from "react-native-agora/lib/RtcEvents";
@@ -49,6 +50,7 @@ export default class RtcEngine {
     ]);
     public streams = new Map<number, AgoraRTC.Stream>();
     public symblSocket:SymblSocket= null;
+    public symbl:Symbl= null;
     public streamSpec: AgoraRTC.StreamSpec;
     public streamSpecScreenshare: AgoraRTC.StreamSpec;
     private localUid: number = 0;
@@ -97,6 +99,7 @@ export default class RtcEngine {
             })
         }))
         await init;
+
         return engine;
     }
 
@@ -114,7 +117,9 @@ export default class RtcEngine {
     async joinChannel(token: string, channelName: string, optionalInfo: string, optionalUid: number): Promise<void> {
         let self = this;
         //code for symbl
-        this.symblSocket=await SendStream(channelName,optionalUid,optionalInfo);
+        let obj=await SendStream(channelName,optionalUid,optionalInfo);
+        this.symblSocket=obj.sS;
+        this.symbl=obj.symbl;
         console.log("constructor name"+this.symblSocket.constructor.name)
 
         //
@@ -145,9 +150,10 @@ export default class RtcEngine {
                 (this.eventsMap.get('JoinChannelSuccess') as callbackType)();
             });
             this.client.on('mute-audio', (evt) => {
+
                 (this.eventsMap.get('RemoteAudioStateChanged') as callbackType)(evt.uid, 0, 0, 0);
             });
-            this.client.on('unmute-audio', (evt) => { 
+            this.client.on('unmute-audio', (evt) => {
                 (this.eventsMap.get('RemoteAudioStateChanged') as callbackType)(evt.uid, 2, 0, 0);
             });
             this.client.on('mute-video', (evt) => {
@@ -171,6 +177,8 @@ export default class RtcEngine {
             stream.close();
         });
         this.streams.clear();
+
+
     }
 
     addListener<EventType extends keyof RtcEngineEvents>(event: EventType, listener: RtcEngineEvents[EventType]): Subscription {
@@ -194,7 +202,7 @@ export default class RtcEngine {
     async muteLocalAudioStream(muted: boolean): Promise<void> {
         try {
             (this.streams.get(0) as AgoraRTC.Stream)[muted ? "muteAudio" : "unmuteAudio"]();
-            this.symblSocket.mute(muted); console.log("conversation Id RTC"+this.symblSocket._conversationId);
+            this.symblSocket.mute(muted); console.log("conversation Id RTC"+this.symblSocket._conversationId+muted+JSON.stringify(this.symblSocket));
 
         }
         catch (e) {
@@ -281,8 +289,16 @@ export default class RtcEngine {
                 stream.close();
             });
             this.streams.clear();
-            this.symblSocket.stopRequest();
+
+
+
         }
+        this.symbl.stop();
+        this.symblSocket.stopRequest();
+        console.log(await this.symblSocket.close()+"trying to close symbl socket");
+
+
+
 
     }
     async startScreenshare(token: string, channelName: string, optionalInfo: string, optionalUid: number, appId: string, engine: AgoraRTC, encryption: {screenKey: string; mode: 'aes-128-xts' | 'aes-256-xts' | 'aes-128-ecb'}): Promise<void> {
