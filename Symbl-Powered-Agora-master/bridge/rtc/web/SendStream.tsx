@@ -49,17 +49,7 @@ export async function SendStream(channelName, optionalUid, optionalInfo) {
     return { sS, symbl };
   }
 
-  /////
-
-  //const [closedCaptionResponse,setClosedCaptionResponse]=useState({});
-  /*const [conversationCompleted, setConversationCompleted]=useState ({});
-    const [messages, setMessages] = useState([]);
-    const [newMessages, setNewMessages] = useState([]);
-    const [insights, setInsights] = useState([]);
-    const [newInsights, setNewInsights] = useState([]);
-    const [tracker, setTracker] = useState([]);*/
-
-  /////
+  
 
   ///Fetch token new method using credentials
   let myHeaders = new Headers();
