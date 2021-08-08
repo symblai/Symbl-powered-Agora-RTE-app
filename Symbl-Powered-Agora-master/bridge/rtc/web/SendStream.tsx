@@ -141,34 +141,6 @@ export async function SendStream(channelName, optionalUid, optionalInfo) {
   }
 
   return { sS, symbl };
-  /* return (
-        <SymblContext.Provider
-            value={{
-
-                closedCaptionResponse
-
-
-            }}
-        >
-            {this.props.children}
-        </SymblContext.Provider>
-    );*/
+  
 }
 
-/*export function sp(text){
-
-    const [closedCaptionResponse,setClosedCaptionResponse]=useState({});
-    setClosedCaptionResponse(text);
-    return (
-        <SymblContext.Provider
-            value={{
-
-                closedCaptionResponse
-
-
-            }}
-        >
-            {this.props.children}
-        </SymblContext.Provider>
-    );
-}*/
