@@ -1,0 +1,74 @@
+{
+    "name": "App Builder",
+    "repository": "https://github.com/samyak-jain/AgoraBackend",
+    "addons": [
+        {
+            "plan": "heroku-postgresql:hobby-dev",
+            "options": {
+                "version": "12"
+            }
+        }
+    ],
+    "env": {
+        "APP_ID": {
+            "description": "An Agora App ID. Here's how to get your app id: https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#getappid"
+        },
+        "APP_CERTIFICATE": {
+            "description": "App Certificate is used by Agora to generate tokens for security. Here's how to get your app certificate: https://docs.agora.io/en/Agora%20Platform/token?platform=All%20Platforms#generate-a-token"
+        },
+        "SYMBL_APPID": {
+            "description": "Symbl app id"
+        },
+        "SYMBL_SECRET": {
+            "description": "Symbl secret"
+        },
+        "CLIENT_ID": {
+            "description": "Client ID used for OAuth",
+            "required": false
+        },
+        "CLIENT_SECRET": {
+            "description": "Client Secret used for OAuth",
+            "required": false
+        },
+        "CUSTOMER_ID": {
+            "description": "Required for Cloud Recording. How to get your credentials: https://docs.agora.io/en/faq/restful_authentication",
+            "required": false
+        },
+        "CUSTOMER_CERTIFICATE": {
+            "description": "Required for Cloud Recording. How to get your credentials: https://docs.agora.io/en/faq/restful_authentication",
+            "required": false
+        },
+        "BUCKET_NAME": {
+            "description": "Name of your AWS S3 Bucket. Required for Cloud Recording.",
+            "required": false
+        },
+        "RECORDING_REGION": {
+            "description": "Region of your AWS S3 Bucket. Required for Cloud Recording.",
+            "required": false
+        },
+        "BUCKET_ACCESS_KEY": {
+            "description": "Enter your AWS Access key. Required for Cloud Recording.",
+            "required": false
+        },
+        "BUCKET_ACCESS_SECRET": {
+            "description": "Enter your AWS Access secret. Required for Cloud Recording.",
+            "required": false
+        },
+        "PSTN_USERNAME": {
+            "description": "Username of your Turbobridge account. Required for PSTN Integration",
+            "required": false
+        },
+        "PSTN_PASSWORD": {
+            "description": "Password of your Turbobridge account. Required for PSTN Integration",
+            "required": false
+        },
+        "SCHEME": {
+            "description": "Contains project name. Used for deep links",
+            "required": true
+        },
+        "ENABLE_OAUTH": {
+            "description": "Boolean. If OAuth needs to be enabled",
+            "required": true
+        }
+    }
+}

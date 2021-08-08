@@ -1,0 +1,316 @@
+{
+    "events": [
+        {
+            "name": "Disconnected",
+            "commands": [
+                {
+                    "stop": {}
+                }
+            ]
+        },
+        {
+            "name": "badAudio",
+            "commands": [
+                {
+                    "hangup": {
+                        "status": 500,
+                        "reason": "Error",
+                        "reasonHeader": "api bad audio"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Error",
+            "commands": [
+                {
+                    "hangup": {
+                        "status": 500,
+                        "reason": "Error",
+                        "reasonHeader": "api error occurred"
+                    }
+                }
+            ]
+        }
+    ],
+    "dialogs": [
+        {
+            "name": "goodbye",
+            "promptSets": [
+                {
+                    "name": "initial",
+                    "noBargeIn": {
+                        "prompts": [
+                            {
+                                "url": {
+                                    "url": "static/audio/goodbye.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "events": [
+                {
+                    "name": "promptsDone",
+                    "commands": [
+                        {
+                            "hangup": {}
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "collectID",
+            "repeatCount": 5,
+            "timeout": 10000,
+            "interdigitTimeout": 5000,
+            "promptSets": [
+                {
+                    "name": "initial",
+                    "bargeIn": {
+                        "prompts": [
+                            {
+                                "silence": 200
+                            },
+                            {
+                                "global": {
+                                    "playAs": "url",
+                                    "var": "welcomeUrl"
+                                }
+                            },
+                            {
+                                "silence": 200
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/enterID.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/presspound.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "noInput",
+                    "bargeIn": {
+                        "prompts": [
+                            {
+                                "silence": 200
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/enterID.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/presspound.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "name": "noMatch",
+                    "bargeIn": {
+                        "prompts": [
+                            {
+                                "url": {
+                                    "url": "static/audio/confID.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            },
+                            {
+                                "var": {
+                                    "playAs": "digits",
+                                    "var": "currentDigits"
+                                }
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/isNotValidConfID.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            },
+                            {
+                                "silence": 200
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/enterID.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            },
+                            {
+                                "url": {
+                                    "url": "static/audio/presspound.wav",
+                                    "maxAge": 0,
+                                    "maxStale": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "inputs": [
+                {
+                    "DTMFCollect": {
+                        "minDigits": 4,
+                        "maxDigits": 15,
+                        "allowedDigits": "1234567890",
+                        "termDigits": "*#",
+                        "commands": [
+                            {
+                                "storeVar": {
+                                    "data": [
+                                        {
+                                            "name": "currentDigits",
+                                            "value": {
+                                                "event": "digits"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "updateRegistry": {}
+                            },
+                            {
+                                "submit": {
+                                    "url": "https://{{.Host}}/pstnHandle",
+                                    "type": "application/x-www-form-urlencoded",
+                                    "method": "GET",
+                                    "data": [
+                                        {
+                                            "name": "id",
+                                            "value": {
+                                                "event": "digits"
+                                            }
+                                        },
+                                        {
+                                            "name": "accessMethod",
+                                            "value": {
+                                                "callInfo": "accessMethod"
+                                            }
+                                        },
+                                        {
+                                            "name": "smthElse",
+                                            "value": {
+                                                "literal": "something"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ],
+            "events": [
+                {
+                    "name": "onLoad",
+                    "commands": [
+                        {
+                            "trace": {
+                                "text": "CollectID onLoad"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "promptsDone",
+                    "commands": [
+                        {
+                            "trace": {
+                                "text": "CollectID promtpsDone"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "noInput",
+                    "commands": [
+                        {
+                            "goto": {
+                                "dialog": "collectID",
+                                "promptSet": "noInput"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "noMatch",
+                    "commands": [
+                        {
+                            "storeVar": {
+                                "data": [
+                                    {
+                                        "name": "currentDigits",
+                                        "value": {
+                                            "event": "digits"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "goto": {
+                                "dialog": "collectID",
+                                "promptSet": "noMatch"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "maxRepeat",
+                    "commands": [
+                        {
+                            "goto": {
+                                "dialog": "goodbye",
+                                "promptSet": "initial"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "validateIDFailed",
+                    "commands": [
+                        {
+                            "goto": {
+                                "dialog": "collectID",
+                                "promptSet": "noMatch"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "commands": [
+        {
+            "goto": {
+                "dialog": "collectID",
+                "promptSet": "initial"
+            }
+        }
+    ]
+}
