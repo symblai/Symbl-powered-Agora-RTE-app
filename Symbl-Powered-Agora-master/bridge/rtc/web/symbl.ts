@@ -510,8 +510,8 @@ export class SymblSocket {
   userName: string = null; /** User name of the client **/
   private bufferSize: number = 8192; /** Buffer size of the audio stream **/
   ws: WebSocket = null; /** The websocket connection **/
-  connected: boolean = true; /** Whether the socket connection is open **/
-  closed: boolean = false; /** Whether the socket connection is closed **/
+  connected: boolean = false; /** Whether the socket connection is open **/
+  closed: boolean = true; /** Whether the socket connection is closed **/
   requestStarted: boolean = false; /** Whether the initial start request has been made **/
   credentials: any = false;
   _conversationId: string = null;
@@ -617,7 +617,7 @@ export class SymblSocket {
     console.info('Conversation ID set ', conversationId);
     window.localStorage.setItem('conversationId', conversationId);
     const res = fetch(
-      'https://api.symbl.ai/v1/conversations/' +
+      'https://api-dev.symbl.ai/v1/conversations/' +
         conversationId +
         '/experiences',
       {
@@ -654,7 +654,7 @@ export class SymblSocket {
     console.warn('Websocket closed', ...anything);
   }
   onError(err: Event) {
-    console.error('Symbl Websocket Error', err);
+    console.error('Symbl Websocket Error', err.code, err.message, err.reason);
   }
   /**
    * Sends a start request, that begins a recognition request.
@@ -817,7 +817,7 @@ export class Symbl {
     if (!chime.meetingId) {
       throw new Error('Chime Meeting ID not provided.');
     }
-    this.url = `wss://api.symbl.ai/v1/realtime/insights/${chime.meetingId}?access_token=${Symbl.ACCESS_TOKEN}`;
+    this.url = `wss://api-dev.symbl.ai/v1/realtime/insights/${chime.meetingId}?access_token=${Symbl.ACCESS_TOKEN}`;
 
     if (config) {
       this.config = config;
@@ -944,7 +944,11 @@ export class Symbl {
         resolve(symblSocket);
       };
     });
-    await wsPromise;
+    try {
+      await wsPromise;
+    } catch (error) {
+      console.error('ERROR - failed to initialize websocket - ', error)
+    }
     symblSocket.startRequest();
     return Promise.resolve(symblSocket);
   }
@@ -973,7 +977,7 @@ export class Symbl {
    */
   async getSummaryUrl(): Promise<string> {
     const res = await fetch(
-      `https://api.symbl.ai/v1/conversations/${this.conversationId}/experiences`,
+      `https://api-dev.symbl.ai/v1/conversations/${this.conversationId}/experiences`,
       {
         method: 'post',
         headers: {

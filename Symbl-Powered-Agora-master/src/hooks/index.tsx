@@ -24,15 +24,17 @@ export const useTranscript = () => {
         const data = await SendStream(
           rtcProps.channel,
           rtcProps.uid || 0,
-          null,
+          { transcript: true },
         );
-        data.symbl.subscribeToTranscriptEvents(transcriptHandler);
-        data.symbl.subscribeToInsightEvents(insightHandler);
+        if (data.symbl) {
+          data.symbl.subscribeToTranscriptEvents(transcriptHandler);
+          data.symbl.subscribeToInsightEvents(insightHandler);
+        }
       } catch (error) {
         console.error('Cant open stream -- ', error);
       }
     };
     fetchData();
-  }, []);
+  }, [window.symbl]);
   return { transcriptItems, insights };
 };

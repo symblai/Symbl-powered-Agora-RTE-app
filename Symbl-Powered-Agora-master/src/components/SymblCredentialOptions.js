@@ -56,7 +56,7 @@ const getAccessToken = async (appId, appSecret) => {
   };
 
   const resp = await fetch(
-    'https://api.symbl.ai/oauth2/token:generate',
+    'https://api-dev.symbl.ai/oauth2/token:generate',
     Options,
   );
   return resp.json();

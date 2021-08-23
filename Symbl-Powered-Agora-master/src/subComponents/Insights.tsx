@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 
 const Insights = ({ insights }) => {
   return insights.map((element) => {
-    console.log('=====huiii', element);
     return (
       <div style={styles.wrapper}>
         <div style={styles.type}>{element.type}</div>

@@ -1,7 +1,7 @@
 {
-  "projectName": "",
-  "displayName": "",
-  "AppID": "",
+  "projectName": "SymblPoweredAgora",
+  "displayName": "SymblPoweredAgora",
+  "AppID": "559faac355e843ccb34ac68cb6c9dc32",
   "primaryColor": "#099DFD",
   "pstn": false,
   "precall": true,

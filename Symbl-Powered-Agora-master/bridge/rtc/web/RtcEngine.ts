@@ -151,11 +151,9 @@ export default class RtcEngine {
             });
             this.client.on('mute-audio', (evt) => {
 
-
                 (this.eventsMap.get('RemoteAudioStateChanged') as callbackType)(evt.uid, 0, 0, 0);
             });
             this.client.on('unmute-audio', (evt) => {
-
                 (this.eventsMap.get('RemoteAudioStateChanged') as callbackType)(evt.uid, 2, 0, 0);
             });
             this.client.on('mute-video', (evt) => {

@@ -243,7 +243,7 @@ const SymblTopicTagCloud = () => {
     function getTopics() {
       if (cv != null) {
         const url =
-          'https://api.symbl.ai/v1/conversations/' +
+          'https://api-dev.symbl.ai/v1/conversations/' +
           window.localStorage.getItem('conversationId') +
           '/topics?sentiment=true&parentRefs=true';
 
