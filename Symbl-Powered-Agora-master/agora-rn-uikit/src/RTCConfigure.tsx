@@ -5,8 +5,8 @@ import React, {
   useContext,
   useRef,
 } from 'react';
-import RtcEngine, {VideoEncoderConfiguration} from 'react-native-agora';
-import {Platform} from 'react-native';
+import RtcEngine, { VideoEncoderConfiguration } from 'react-native-agora';
+import { Platform } from 'react-native';
 import requestCameraAndAudioPermission from './permission';
 import {
   RtcProvider,
@@ -20,11 +20,10 @@ import PropsContext, {
   RtcPropsInterface,
   CallbacksInterface,
 } from './PropsContext';
-import {MinUidProvider} from './MinUidContext';
-import {MaxUidProvider} from './MaxUidContext';
+import { MinUidProvider } from './MinUidContext';
+import { MaxUidProvider } from './MaxUidContext';
 import quality from './quality';
-import {SendStream} from '../../bridge/rtc/web/SendStream';
-
+import { SendStream } from '../../bridge/rtc/web/SendStream';
 const initialState: UidStateInterface = {
   min: [],
   max: [
@@ -35,30 +34,26 @@ const initialState: UidStateInterface = {
     },
   ],
 };
-
 const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
   const [ready, setReady] = useState<boolean>(false);
   let joinRes: ((arg0: boolean) => void) | null = null;
   let canJoin = useRef(new Promise<boolean | void>((res) => (joinRes = res)));
-  const {callbacks, rtcProps} = useContext(PropsContext);
+  const { callbacks, rtcProps } = useContext(PropsContext);
   let engine = useRef<RtcEngine | null>(null);
-  let {callActive} = props;
+  let { callActive } = props;
   callActive === undefined ? (callActive = true) : {};
-
   const reducer = (
     state: UidStateInterface,
     action: ActionInterface<keyof CallbacksInterface, CallbacksInterface>,
   ) => {
     let stateUpdate = {},
       uids = [...state.max, ...state.min].map((u: UidInterface) => u.uid);
-
     switch (action.type) {
       case 'UserJoined':
         if (
           uids.indexOf((action as ActionType<'UserJoined'>).value[0]) === -1
         ) {
           //If new user has joined
-
           let minUpdate = [
             ...state.min,
             {
@@ -67,7 +62,6 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
               video: true,
             },
           ]; //By default add to minimized
-
           if (minUpdate.length === 1 && state.max[0].uid === 'local') {
             //Only one remote and local is maximized
             //Swap max and min
@@ -81,7 +75,6 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
               min: minUpdate,
             };
           }
-
           console.log('new user joined!\n', state, stateUpdate);
         }
         break;
@@ -118,6 +111,9 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
           min: state.min.map(audioMute),
           max: state.max.map(audioMute),
         };
+        break;
+      case 'Transcript':
+        stateUpdate: {log: action.value}
         break;
       case 'UserMuteRemoteVideo':
         const videoMute = (user: UidInterface) => {
@@ -204,9 +200,7 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
         };
         break;
     }
-
     // Handle event listeners
-
     if (callbacks && callbacks[action.type]) {
       // @ts-ignore
       callbacks[action.type].apply(null, action.value);
@@ -214,15 +208,12 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
     } else {
       // console.log('callback not found', action.type);
     }
-
     // console.log(state, action, stateUpdate);
-
     return {
       ...state,
       ...stateUpdate,
     };
   };
-
   const swapVideo = (state: UidStateInterface, ele: UidInterface) => {
     let newState: UidStateInterface = {
       min: [],
@@ -235,12 +226,9 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
       newState.min.push(state.max[0]);
     }
     newState.max = [ele];
-
     return newState;
   };
-
   const [uidState, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
     async function init() {
       if (Platform.OS === 'android') {
@@ -263,12 +251,10 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
           }
         }
         await engine.current.enableVideo();
-
         if (rtcProps.dual) {
           await engine.current.enableDualStreamMode(rtcProps.dual);
           await engine.current.setRemoteSubscribeFallbackOption(1);
         }
-
         engine.current.addListener('UserJoined', (...args) => {
           //Get current peer IDs
           (dispatch as DispatchType<'UserJoined'>)({
@@ -276,7 +262,6 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
             value: args,
           });
         });
-
         engine.current.addListener('UserOffline', (...args) => {
           //If user leaves
           (dispatch as DispatchType<'UserOffline'>)({
@@ -284,32 +269,29 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
             value: args,
           });
         });
-
         engine.current.addListener('RemoteAudioStateChanged', (...args) => {
           (dispatch as DispatchType<'RemoteAudioStateChanged'>)({
             type: 'RemoteAudioStateChanged',
             value: args,
           });
         });
-
         engine.current.addListener('Error', (e) => {
           console.log('Error: ', e);
         });
-
         engine.current.addListener('RemoteVideoStateChanged', (...args) => {
           dispatch({
             type: 'RemoteVideoStateChanged',
             value: args,
           });
         });
-
         (joinRes as (arg0: boolean) => void)(true);
         setReady(true);
       } catch (e) {
+        console.error('===ERROR create config', e.message);
+
         console.log(e);
       }
     }
-
     if (joinRes) {
       init();
       return () => {
@@ -318,12 +300,10 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rtcProps.appId]);
-
   // Dynamically switches channel when channel prop changes
   useEffect(() => {
     async function join() {
       await canJoin.current;
-
       if (
         rtcProps.encryption &&
         rtcProps.encryption.key &&
@@ -346,7 +326,6 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
     }
     if (callActive) {
       join();
-
       console.log('Attempted join: ', rtcProps.channel);
     } else {
       console.log('In precall - waiting to join');
@@ -360,9 +339,8 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
       }
     };
   }, [rtcProps.channel, rtcProps.uid, rtcProps.token, callActive]);
-
   return (
-    <RtcProvider value={{RtcEngine: engine.current as RtcEngine, dispatch}}>
+    <RtcProvider value={{ RtcEngine: engine.current as RtcEngine, dispatch }}>
       <MaxUidProvider value={uidState.max}>
         <MinUidProvider value={uidState.min}>
           {
@@ -374,5 +352,4 @@ const RtcConfigure: React.FC<Partial<RtcPropsInterface>> = (props) => {
     </RtcProvider>
   );
 };
-
 export default RtcConfigure;
