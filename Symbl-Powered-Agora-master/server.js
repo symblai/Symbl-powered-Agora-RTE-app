@@ -1,10 +1,16 @@
 const path = require('path');
 const history = require('connect-history-api-fallback');
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const corsOptions = {
+  origin: `http://localhost:${PORT}`,
+  optionsSuccessStatus: 200,
+};
 
+app.use(cors(corsOptions));
 
 app.use(history({
   verbose: true,
