@@ -10,6 +10,7 @@
     "web:build": "cross-env TARGET=web NODE_ENV=production webpack --config webpack.web.config.js",
     "electron:start": "cross-env NODE_ENV=development gulp development",
     "electron:build": "cross-env NODE_ENV=production gulp build",
+    "run:web": "cross-env NODE_ENV=production npm run web:build && node server.js",
     "windows": "cross-env TARGET=windows npm run electron:start",
     "windows:build": "cross-env TARGET=windows npm run electron:build",
     "mac": "cross-env TARGET=mac npm run electron:start",
