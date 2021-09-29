@@ -70,26 +70,31 @@ Gather your Agora credentials :
 ### Setup the Backend :
 
 Download the repo and open the file config.json in folder Symbl-Powered-Agora-Backend-Master
-    Make following changes :
-    Add AppID and AppSecret in the config.json file in 
-    
-    “SYMBL_APPID": “”
-    "SYMBL_SECRET":””
-    
-    Open file /models/db.go
-    
-    Add your Postgres database url(that you have set up in the previous step) in line 16 . It should contain database url , username and password for the db in below format 
-      ```
-      postgres://user:pass@host/dbname
-      ```
+Make following changes:
 
-### Run the backend :
+1. Add AppID and AppSecret in the config.json file in 
 
-  Go to the root of the folder and rub below command .
+``` 
+"SYMBL_APPID": ""
+"SYMBL_SECRET": ""
+``` 
+
+2. Open the file /models/db.go and add your Postgres database url(that you have set up in the previous step) in line 16.
+It should contain the database url, username and password for the db in the following format:
+
+```
+postgres://user:pass@host/dbname
+```
+
+### Run the Backend server:
+
+Go to the root of the folder and rub below command .
   
-      go run server.go
-      
-your backend go server should be running on localhost:8080
+```
+go run server.go
+```
+
+Your Backend server should be running on localhost:8080
 
 ### Setup the frontend :
 
