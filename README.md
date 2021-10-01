@@ -5,10 +5,10 @@
 Symbl's APIs empower developers to enable: 
 - **Real-time** analysis of free-flowing discussions to automatically surface highly relevant summary discussion topics, contextual insights, suggestive action items, follow-ups, decisions, and questions.
 - **Voice APIs** that makes it easy to add AI-powered conversational intelligence to either [telephony][telephony] or [WebSocket][websocket] interfaces.
-- **Conversation APIs** that provide a REST interface for managing and processing your conversation data.
+- **Conversation APIs** that provides a REST interface for managing and processing your conversation data.
 - **Summary UI** with a fully customizable and editable reference experience that indexes a searchable transcript and shows generated actionable insights, topics, timecodes, and speaker information.
 
-**This app is meant for demo purposes only , please feel free to report any issue in the issues section**
+**This app is provided for demonstration purposes only, please feel free to report any issue in the issues section**
 
 <hr />
 
@@ -27,7 +27,7 @@ Symbl's APIs empower developers to enable:
 
 ## Introduction
 
-This is a multi-party video conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction). 
+This is a multi-party video-conferencing application that demonstrates [Symbl's Real-time APIs](https://docs.symbl.ai/docs/streamingapi/overview/introduction). 
 
 ## Pre-requisites
 
@@ -40,8 +40,8 @@ This is a multi-party video conferencing application that demonstrates [Symbl's 
 ## Features
 * Live Closed Captioning
 * Real-time Transcription
-* Real-time insights : Questions , Action-Items , Follow-ups
-* Real time Topic with sentiments 
+* Real-time Insights: Questions, Action-Items and Follow-ups
+* Real-time Topics with sentiments 
 * Video conferencing with real-time video and audio
 * Enable/Disable camera
 * Mute/unmute mic
@@ -99,7 +99,7 @@ Your backend server should be running on port `8080`.
 "AppID":""
 ```
 
-2. Add the Backend url in respective field below:
+2. Add the Backend URL in respective field below:
 
 ```
 "backEndURL": "http://localhost:8080"
