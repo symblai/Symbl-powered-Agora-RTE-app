@@ -123,6 +123,10 @@ npm run web
     
 Your frontend server should be running on port `3000` (http://localhost:3000).
 
+### Testing the Application
+With your backend and frontend servers up and running, navigate to [http://localhost:3000](http://localhost:3000), click on the `Create a meeting` button, enter a room name and click the `Create a meeting` button again.
+When the meeting URL is created, click on the `Enter Meeting (as host)` button to enter the meeting.
+Select your camera, microphone and type your display name before clicking on the `Join Room` button.
 
 ## Conclusion
 This application allows you to join an Agora video conference meeting with Symbl Transcripts and Insights, Topics and Sentiments enabled and displayed on the screen in real-time. 
