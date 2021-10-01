@@ -31,10 +31,11 @@ This is a multi-party video conferencing application that demonstrates [Symbl's 
 
 ## Pre-requisites
 
-* JS ES6+
-* [Node.js v10+](https://nodejs.org/en/download/)*
-* NPM v6+
-* Agora account - https://console.agora.io/
+* [Node.js v10+](https://nodejs.org/en/download/)
+* [PostgreSQL Database](https://www.postgresql.org/)
+* [Go](https://golang.org/)
+* [Agora account](https://console.agora.io/)
+* [Symbl account](https://platform.symbl.ai/#/signup?utm_source=get-info&utm_medium=marcelo&utm_campaign=rep)
 
 ## Features
 * Live Closed Captioning
@@ -50,80 +51,81 @@ This is a multi-party video conferencing application that demonstrates [Symbl's 
 ## Browser Support
 This application is supported only on Google Chrome and Firefox.
 
-## Setup and Deploy
-The first step to getting setup is to [sign up][signup]. 
+## Setup and Deploy 
 
-Gather your Symbl credentials:
-1. Your App Id that you can get from [Platform](https://platform.symbl.ai)
-2. Your App Secret that you can get from [Platform](https://platform.symbl.ai)
+Get your Symbl credentials (`App Id` and `App Secret`) from the [Symbl Platform Console](https://platform.symbl.ai).
 
-Gather your Agora credentials :
- Acquire your Agora App ID and App Certificate. If you don’t have an App ID, you can get one by following this [Guide](https://www.agora.io/en/blog/how-to-get-started-with-agora/)
+Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
 
-### Setup the Database :
+### Setup the Database
+* Download and install [PostgreSQL](https://www.postgresql.org/download/).
+* Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
+* Note the username, password and database name that you have created. 
 
-  * Install PostgresSQL on the server or your local machine (where you plan to deploy this applciation)
-  * create a database with name of your choice .
-  * You can follow this guide [here](https://www.postgresql.org/) .
-  * Please note the username , password and database name that you have created. 
+### Setup the Backend
 
-### Setup the Backend :
-
-Download the repo and open the file config.json in folder Symbl-Powered-Agora-Backend-Master
-Make following changes:
-
-1. Add AppID and AppSecret in the config.json file in 
+1. Clone the [repo](https://github.com/symblai/Symbl-powered-Agora-RTE-app).
+2. Navigate to the `Symbl-Powered-Agora-Backend-master` directory and open the `config.json` file.
+3. Add your Symbl `App Id` and `App Secret` values in the respective fields below:
 
 ``` 
 "SYMBL_APPID": ""
 "SYMBL_SECRET": ""
 ``` 
 
-2. Open the file /models/db.go and add your Postgres database url(that you have set up in the previous step) in line 16.
-It should contain the database url, username and password for the db in the following format:
+4. Open the file `models/db.go` and provide your PostgreSQL database user, password, host and database name under the `CreateDB` function as described below.
 
 ```
-postgres://user:pass@host/dbname
+db, err := gorm.Open("postgres", "postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
 ```
 
-### Run the Backend server:
+### Run the Backend server
 
-Go to the root of the folder and rub below command .
+Navigate to the `Symbl-Powered-Agora-Backend-master` directory and run the following command:
   
 ```
 go run server.go
 ```
 
-Your Backend server should be running on localhost:8080
+Your backend server should be running on port `8080`.
 
-### Setup the frontend :
+### Setup the Frontend
 
-  Open file config.json in folder Symbl-Powered-Agora-Master and enter following Agora attributes
+1. Open the file `config.json` under the folder `Symbl-Powered-Agora-Master` and provide your Agora project name, display name and App Id in the respective fields below:
+
+```
+"projectName": ""
+"displayName": ""
+"AppID":""
+```
+
+2. Add the Backend url in respective field below:
+
+```
+"backEndURL": "http://localhost:8080"
+```
+
+### Run the Frontend
+
+Navigate to the `Symbl-Powered-Agora-master` directory and run the following command:
   
-    "projectName": ""
-    "displayName": ""
-    "AppID":""
+```
+npm install
+```
+
+This command will install all the necessary frontend dependencies.
+
+Run the following command to start the frontend application:
+
+```
+npm run web 
+```
     
-  
-  Add the backend url in same config.json file (it is the url of the same backend server that you just started )
-	"backEndURL": "http://localhost:8080"
-
-### Run the frontend :
-
-  From the terminal go to the root folder of the project and run below commands :
-    
-   
-    npm install  (This will install all the necessary dependencies )
- 
-    npm run web 
-    
-
-  Your application will be running on http://localhost:3000
-
+Your frontend server should be running on port `3000` (http://localhost:3000).
 
 
 ## Conclusion
-When implemented this application will allow you to join a demo Agora video conference meeting, and Symbl transcripts along with Insights , topics and sentiments will be displayed on screen in real time. 
+This application allows you to join an Agora video conference meeting with Symbl Transcripts and Insights, Topics and Sentiments enabled and displayed on the screen in real-time. 
 
 ## Community
 
@@ -138,9 +140,8 @@ This library is released under the [Apache License][license]
 [websocket]: https://docs.symbl.ai/docs/streamingapi/overview/introduction
 [developer_community]: https://community.symbl.ai/?_ga=2.134156042.526040298.1609788827-1505817196.1609788827
 [slack]: https://join.slack.com/t/symbldotai/shared_invite/zt-4sic2s11-D3x496pll8UHSJ89cm78CA
-[signup]: https://platform.symbl.ai/?_ga=2.63499307.526040298.1609788827-1505817196.1609788827
-[issues]: https://github.com/symblai/symbl-for-zoom/issues
+[issues]: https://github.com/symblai/Symbl-powered-Agora-RTE-app/issues
 [agorarte]: https://appbuilder.agora.io/
-[pulls]: https://github.com/symblai/symbl-for-zoom/pulls
+[pulls]: https://github.com/symblai/Symbl-powered-Agora-RTE-app/pulls
 
 
