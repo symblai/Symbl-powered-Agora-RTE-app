@@ -23,7 +23,6 @@ import (
 	"github.com/samyak-jain/agora_backend/utils"
 
 	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/samyak-jain/agora_backend/graph"
 	"github.com/samyak-jain/agora_backend/graph/generated"
 
@@ -57,8 +56,9 @@ func main() {
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(config))
 	requestHandler := routes.Router{DB: database}
 
-	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
-	router.HandleFunc("/", playground.Handler("GraphQL playground", "/query"))
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
+	//router.HandleFunc("/", playground.Handler("GraphQL playground", "/query"))
+	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./static/"))))
 	router.HandleFunc("/test", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		requestDump, err := httputil.DumpRequest(r, true)
 		if err != nil {
@@ -103,5 +103,6 @@ func main() {
 	middlewareHandler.UseHandler(router)
 
 	log.Debug().Str("PORT", port)
+	log.Print("Backend server running on port: ", port)
 	log.Fatal().Err(http.ListenAndServe(":"+port, middlewareHandler))
 }
