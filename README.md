@@ -53,14 +53,14 @@ This application is supported only on Google Chrome and Firefox.
 
 ## Setup and Deploy 
 
-Get your Symbl credentials (`App Id` and `App Secret`) from the [Symbl Platform Console](https://platform.symbl.ai).
+1. Get your Symbl credentials (`App Id` and `App Secret`) from the [Symbl Platform Console](https://platform.symbl.ai).
 
-Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
+2. Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
 
 ### Setup the Database
-* Download and install [PostgreSQL](https://www.postgresql.org/download/).
-* Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
-* Note the username, password and database name that you have created. 
+1. Download and install [PostgreSQL](https://www.postgresql.org/download/).
+2. Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
+3. Note the username, password and database name that you have created. 
 
 ### Setup the Backend
 
@@ -73,7 +73,7 @@ Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Plat
 "SYMBL_SECRET": ""
 ``` 
 
-4. Open the file `models/db.go` and provide your PostgreSQL database user, password, host and database name under the `CreateDB` function as described below.
+4. Open the file `models/db.go` and update the following line of code with your PostgreSQL database user, password, host and database name under the `CreateDB` function.
 
 ```
 db, err := gorm.Open("postgres", "postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
@@ -81,7 +81,7 @@ db, err := gorm.Open("postgres", "postgres://<user>:<password>@<host>/<db_name>?
 
 ### Run the Backend server
 
-Navigate to the `Symbl-Powered-Agora-Backend-master` directory and run the following command:
+1. Navigate to the `Symbl-Powered-Agora-Backend-master` directory and run the following command:
   
 ```
 go run server.go
@@ -107,7 +107,7 @@ Your backend server should be running on port `8080`.
 
 ### Run the Frontend
 
-Navigate to the `Symbl-Powered-Agora-master` directory and run the following command:
+1. Navigate to the `Symbl-Powered-Agora-master` directory and run the following command:
   
 ```
 npm install
@@ -115,7 +115,7 @@ npm install
 
 This command will install all the necessary frontend dependencies.
 
-Run the following command to start the frontend application:
+2. Run the following command to start the frontend application:
 
 ```
 npm run web 
