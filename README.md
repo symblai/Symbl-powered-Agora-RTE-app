@@ -101,7 +101,7 @@ Your backend server should be running on port `8080` and you should see a log me
 {"level":"debug","time":"9999-99-99T99:99:99-07:00","message":"Backend server running on port: 8080"}
 ```
 
-You can also navigate to http://localhost:8080 to make sure the server is up and running without any issues. You should see a sample web page as shown below.
+You can also navigate to http://localhost:8080/test to make sure the server is up and running without any issues. You should see a sample web page as shown below.
 
 ![](/sample-backend.png)
 
