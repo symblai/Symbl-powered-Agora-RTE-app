@@ -129,7 +129,7 @@ When the meeting URL is created, click on the `Enter Meeting (as host)` button t
 Select your camera, microphone and type your display name before clicking on the `Join Room` button.
 
 ## Conclusion
-This application allows you to join an Agora video conference meeting with Symbl Transcripts and Insights, Topics and Sentiments enabled and displayed on the screen in real-time. 
+This application allows you to join an Agora video conference meeting with Symbl Transcripts and Insights, Topics and Sentiments enabled and displayed it on the screen in real-time. 
 
 ## Community
 
