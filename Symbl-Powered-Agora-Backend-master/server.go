@@ -2,7 +2,6 @@ package main
 
 import (
 	"net/http"
-	"net/http/httputil"
 	"os"
 
 	"github.com/samyak-jain/agora_backend/migrations"
@@ -23,6 +22,7 @@ import (
 	"github.com/samyak-jain/agora_backend/utils"
 
 	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/samyak-jain/agora_backend/graph"
 	"github.com/samyak-jain/agora_backend/graph/generated"
 
@@ -56,17 +56,8 @@ func main() {
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(config))
 	requestHandler := routes.Router{DB: database}
 
-	router.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("./static/"))))
-	//router.HandleFunc("/", playground.Handler("GraphQL playground", "/query"))
-	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("./static/"))))
-	router.HandleFunc("/test", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		requestDump, err := httputil.DumpRequest(r, true)
-		if err != nil {
-			log.Error().Err(err).Msg("Error reading request")
-			return
-		}
-		log.Info().Interface("request", string(requestDump)).Msg("Request Details")
-	}))
+	router.PathPrefix("/test").Handler(http.StripPrefix("/test", http.FileServer(http.Dir("./static/"))))
+	router.HandleFunc("/", playground.Handler("GraphQL playground", "/query"))
 	router.Handle("/query", srv)
 	router.HandleFunc("/oauth/web", http.HandlerFunc(requestHandler.WebOAuthHandler))
 	router.HandleFunc("/oauth/desktop", http.HandlerFunc(requestHandler.DesktopOAuthHandler))
