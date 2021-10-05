@@ -51,14 +51,14 @@ This is a multi-party video-conferencing application that demonstrates [Symbl's 
 ## Browser Support
 This application is supported only on Google Chrome and Firefox.
 
-## Setup and Deploy 
+## Credentials
 
 1. Get your Symbl credentials (`App Id` and `App Secret`) from the [Symbl Platform Console](https://platform.symbl.ai).
 
-2. Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
+2. Get your Agora credentials (`App Id`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
 
 ### Setup the Database
-1. Download and install [PostgreSQL](https://www.postgresql.org/download/).
+1. Download and install [PostgreSQL](https://www.postgresql.org/download/). You can follow these [steps to install PostgreSQL](https://www.postgresqltutorial.com/postgresql-getting-started/).
 2. Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
 3. Note the username, password and database name that you have created. 
 
@@ -73,11 +73,19 @@ This application is supported only on Google Chrome and Firefox.
 "SYMBL_SECRET": ""
 ``` 
 
-4. Open the file `models/db.go` and update the following line of code with your PostgreSQL database user, password, host and database name under the `CreateDB` function.
+4. Open the file models/db.go and replace the following line (19) within the CreateDB function:
 
 ```
-db, err := gorm.Open("postgres", "postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
+db, err := gorm.Open("postgres", os.Getenv("PG_DB_DETAILS"))
 ```
+
+with your PostgreSQL database user, password, host and database name as described below:
+
+```
+db, err := gorm.Open("postgres","postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
+```
+
+This sample application uses GORM for connecting to the PostgreSQL database and you can learn more about it [here](https://gorm.io/docs/connecting_to_the_database.html).
 
 ### Run the Backend server
 
@@ -87,7 +95,15 @@ db, err := gorm.Open("postgres", "postgres://<user>:<password>@<host>/<db_name>?
 go run server.go
 ```
 
-Your backend server should be running on port `8080`.
+Your backend server should be running on port `8080` and you should see a log message similar to the following:
+
+```
+{"level":"debug","time":"9999-99-99T99:99:99-07:00","message":"Backend server running on port: 8080"}
+```
+
+You can also navigate to http://localhost:8080 to make sure the server is up and running without any issues. You should see a sample web page as shown below.
+
+![](/sample-backend.png)
 
 ### Setup the Frontend
 
@@ -121,10 +137,13 @@ This command will install all the necessary frontend dependencies.
 npm run web 
 ```
     
-Your frontend server should be running on port `3000` (http://localhost:3000).
+Your frontend server should be running on port 3000 (http://localhost:3000). You should see the web application ready to be used as shown below.
+
+![](/sample-frontend.png)
 
 ### Testing the Application
 With your backend and frontend servers up and running, navigate to [http://localhost:3000](http://localhost:3000), click on the `Create a meeting` button, enter a room name and click the `Create a meeting` button again.
+
 When the meeting URL is created, click on the `Enter Meeting (as host)` button to enter the meeting.
 Select your camera, microphone and type your display name before clicking on the `Join Room` button.
 
