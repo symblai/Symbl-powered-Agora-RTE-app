@@ -62,7 +62,7 @@ This application is supported only on Google Chrome and Firefox.
 2. Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
 3. Note the username, password and database name that you have created. 
 
-### Setup the Backend
+### Setup the Backend 
 
 1. Clone the [repo](https://github.com/symblai/Symbl-powered-Agora-RTE-app).
 2. Navigate to the `Symbl-Powered-Agora-Backend-master` directory and open the `config.json` file.
