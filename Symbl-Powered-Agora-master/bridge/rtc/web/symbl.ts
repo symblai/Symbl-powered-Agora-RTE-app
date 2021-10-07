@@ -617,7 +617,7 @@ export class SymblSocket {
     console.info('Conversation ID set ', conversationId);
     window.localStorage.setItem('conversationId', conversationId);
     const res = fetch(
-      'https://api-dev.symbl.ai/v1/conversations/' +
+      'https://api.symbl.ai/v1/conversations/' +
         conversationId +
         '/experiences',
       {
@@ -817,7 +817,7 @@ export class Symbl {
     if (!chime.meetingId) {
       throw new Error('Chime Meeting ID not provided.');
     }
-    this.url = `wss://api-dev.symbl.ai/v1/realtime/insights/${chime.meetingId}?access_token=${Symbl.ACCESS_TOKEN}`;
+    this.url = `wss://api.symbl.ai/v1/realtime/insights/${chime.meetingId}?access_token=${Symbl.ACCESS_TOKEN}`;
 
     if (config) {
       this.config = config;
@@ -977,7 +977,7 @@ export class Symbl {
    */
   async getSummaryUrl(): Promise<string> {
     const res = await fetch(
-      `https://api-dev.symbl.ai/v1/conversations/${this.conversationId}/experiences`,
+      `https://api.symbl.ai/v1/conversations/${this.conversationId}/experiences`,
       {
         method: 'post',
         headers: {
