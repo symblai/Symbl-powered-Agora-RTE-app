@@ -8,7 +8,7 @@ Symbl's APIs empower developers to enable:
 - **Conversation APIs** that provides a REST interface for managing and processing your conversation data.
 - **Summary UI** with a fully customizable and editable reference experience that indexes a searchable transcript and shows generated actionable insights, topics, timecodes, and speaker information.
 
-**This app is provided for demonstration purposes only. Please feel free to report any issue in the issues section**
+**This app is provided for demonstration purposes only. Please feel free to report any issue in the `Issues` section.**
 
 <hr />
 
@@ -141,7 +141,7 @@ Your frontend server should be running on port 3000 (http://localhost:3000). You
 
 ![](/sample-frontend.png)
 
-### Testing the application
+### Testing the Application
 With your backend and frontend servers up and running, navigate to [http://localhost:3000](http://localhost:3000), click on the `Create a meeting` button, enter a room name and click the `Create a meeting` button again.
 
 When the meeting URL is created, click on the `Enter Meeting (as host)` button to enter the meeting.
