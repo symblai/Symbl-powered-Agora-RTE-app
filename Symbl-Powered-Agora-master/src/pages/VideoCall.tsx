@@ -214,7 +214,7 @@ const VideoCall: React.FC = () => {
                 >
                   {callActive ? (
                     <View style={style.full}>
-                      <div id="username">{username}</div>
+                      <div id="username" style={{display:"none"}}>{username}</div>
 
                       <Navbar
                         participantsView={participantsView}
