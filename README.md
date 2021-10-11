@@ -8,7 +8,7 @@ Symbl's APIs empower developers to enable:
 - **Conversation APIs** that provides a REST interface for managing and processing your conversation data.
 - **Summary UI** with a fully customizable and editable reference experience that indexes a searchable transcript and shows generated actionable insights, topics, timecodes, and speaker information.
 
-**This app is provided for demonstration purposes only, please feel free to report any issue in the issues section**
+**This app is provided for demonstration purposes only. Please feel free to report any issue in the issues section**
 
 <hr />
 
@@ -40,7 +40,7 @@ This is a multi-party video-conferencing application that demonstrates [Symbl's 
 ## Features
 * Live Closed Captioning
 * Real-time Transcription
-* Real-time Insights: Questions, Action-Items and Follow-ups
+* Real-time Insights: Questions, Action Items and Follow-ups
 * Real-time Topics with sentiments 
 * Video conferencing with real-time video and audio
 * Enable/Disable camera
@@ -49,7 +49,7 @@ This is a multi-party video-conferencing application that demonstrates [Symbl's 
 
 
 ## Browser Support
-This application is supported only on Google Chrome and Firefox.
+Support for this application is available only for Chrome and Firefox.
 
 ## Credentials
 
@@ -60,7 +60,7 @@ This application is supported only on Google Chrome and Firefox.
 ### Setup the Database
 1. Download and install [PostgreSQL](https://www.postgresql.org/download/). You can follow these [steps to install PostgreSQL](https://www.postgresqltutorial.com/postgresql-getting-started/).
 2. Create a database with the name of your choice. See [here](https://www.postgresql.org/docs/13/manage-ag-createdb.html) for more information.
-3. Note the username, password and database name that you have created. 
+3. Note the username, password, and database name that you have created. 
 
 ### Setup the Backend 
 
@@ -79,7 +79,7 @@ This application is supported only on Google Chrome and Firefox.
 db, err := gorm.Open("postgres", os.Getenv("PG_DB_DETAILS"))
 ```
 
-with your PostgreSQL database user, password, host and database name as described below:
+with your PostgreSQL database user, password, host, and database name as described below:
 
 ```
 db, err := gorm.Open("postgres","postgres://<user>:<password>@<host>/<db_name>?sslmode=disable")
@@ -107,7 +107,7 @@ You can also navigate to http://localhost:8080/test to make sure the server is u
 
 ### Setup the Frontend
 
-1. Open the file `config.json` under the folder `Symbl-Powered-Agora-Master` and provide your Agora project name, display name and App Id in the respective fields below:
+1. Open the file `config.json` under the folder `Symbl-Powered-Agora-Master` and provide your Agora project name, display name, and App Id in the respective fields below:
 
 ```
 "projectName": ""
@@ -115,7 +115,7 @@ You can also navigate to http://localhost:8080/test to make sure the server is u
 "AppID":""
 ```
 
-2. Add the Backend URL in respective field below:
+2. Add the Backend URL in the respective field below:
 
 ```
 "backEndURL": "http://localhost:8080"
@@ -141,7 +141,7 @@ Your frontend server should be running on port 3000 (http://localhost:3000). You
 
 ![](/sample-frontend.png)
 
-### Testing the Application
+### Testing the application
 With your backend and frontend servers up and running, navigate to [http://localhost:3000](http://localhost:3000), click on the `Create a meeting` button, enter a room name and click the `Create a meeting` button again.
 
 When the meeting URL is created, click on the `Enter Meeting (as host)` button to enter the meeting.
@@ -154,7 +154,7 @@ This application allows you to join an Agora video conference meeting with Symbl
 
 If you have any questions, feel free to reach out to us at devrelations@symbl.ai or through our [Community Slack][slack] or our [forum][developer_community].
 
-This guide is actively developed, and we love to hear from you! Please feel free to [create an issue][issues] or [open a pull request][pulls] with your questions, comments, suggestions and feedback.  If you liked our integration guide, please star our repo!
+This guide is actively developed, and we love to hear from you! Please feel free to [create an issue][issues] or [open a pull request][pulls] with your questions, comments, suggestions, and feedback. If you liked our integration guide, please star our repo!
 
 This library is released under the [Apache License][license]
 
@@ -166,5 +166,4 @@ This library is released under the [Apache License][license]
 [issues]: https://github.com/symblai/Symbl-powered-Agora-RTE-app/issues
 [agorarte]: https://appbuilder.agora.io/
 [pulls]: https://github.com/symblai/Symbl-powered-Agora-RTE-app/pulls
-
 
