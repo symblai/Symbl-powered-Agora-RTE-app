@@ -107,7 +107,7 @@ const VideoCall: React.FC = () => {
   const [layout, setLayout] = useState(false);
   const [recordingActive, setRecordingActive] = useState(false);
   const [chatDisplayed, setChatDisplayed] = useState(false);
-  const [transcriptDisplayed, setTranscriptDisplayed] = useState(false);
+  const [transcriptDisplayed, setTranscriptDisplayed] = useState(true);
   const [closedCaptionResponse, setClosedCaptionResponse] = useState({});
   const [queryComplete, setQueryComplete] = useState(false);
   const { phrase } = useParams();
