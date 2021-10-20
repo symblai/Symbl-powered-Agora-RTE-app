@@ -92,7 +92,7 @@ export default function SymblTranscript(props: any) {
     username,
   } = props;
   const [insightActive, setInsightActive] = useState(false);
-  const [transcriptActive, setTranscriptActive] = useState(false);
+  const [transcriptActive, setTranscriptActive] = useState(true);
   const [topicActive, setTopicActive] = useState(false);
   const [intermediateTranscript, setIntermediateTranscript] = useState('');
 
