@@ -91,6 +91,10 @@ export default function SymblTranscript(props: any) {
     setTranscriptDisplayed,
     username,
   } = props;
+
+  const [TRANSCRIPT, INSIGHTS, TOPICS] = ['Transcript', 'Insights', 'Topics'];
+  const [tabHeader, setTabHeader] = useState(TRANSCRIPT);
+
   const [insightActive, setInsightActive] = useState(false);
   const [transcriptActive, setTranscriptActive] = useState(true);
   const [topicActive, setTopicActive] = useState(false);
@@ -174,6 +178,7 @@ export default function SymblTranscript(props: any) {
     setTranscriptActive(true);
     setInsightActive(false);
     setTopicActive(false);
+    setTabHeader(TRANSCRIPT);
     console.log('intertranscript' + getInterTranscript());
   };
   const selectInsight = () => {
@@ -181,12 +186,14 @@ export default function SymblTranscript(props: any) {
     setTranscriptActive(false);
     setInsightActive(true);
     setTopicActive(false);
+    setTabHeader(INSIGHTS);
   };
   const selectTopic = () => {
     // document.getElementById("ST2").innerHTML=getInterInsight();
     setTranscriptActive(false);
     setInsightActive(false);
     setTopicActive(true);
+    setTabHeader(TOPICS);
   };
   //let intermediateTranscript=`<div></div>`;
   const intermediateInsight = '<div></div>';
@@ -205,7 +212,7 @@ export default function SymblTranscript(props: any) {
             style={style.backIcon}
             source={{ uri: icons.backBtn }}
           />
-          <Text style={style.headingText}>Transcript</Text>
+          <Text style={style.headingText}>{tabHeader}</Text>
         </TouchableOpacity>
       </View>
       <View style={style.chatNav}>
@@ -226,7 +233,7 @@ export default function SymblTranscript(props: any) {
           <Text
             style={transcriptActive ? style.groupTextActive : style.groupText}
           >
-            Transcript
+            {TRANSCRIPT}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -244,7 +251,7 @@ export default function SymblTranscript(props: any) {
           }
         >
           <Text style={insightActive ? style.groupTextActive : style.groupText}>
-            Insights
+            {INSIGHTS}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -262,7 +269,7 @@ export default function SymblTranscript(props: any) {
           }
         >
           <Text style={topicActive ? style.groupTextActive : style.groupText}>
-            Topics
+            {TOPICS}
           </Text>
         </TouchableOpacity>
       </View>
