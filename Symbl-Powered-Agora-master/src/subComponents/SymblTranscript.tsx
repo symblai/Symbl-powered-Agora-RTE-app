@@ -216,36 +216,39 @@ export default function SymblTranscript(props: any) {
         </TouchableOpacity>
       </View>
       <View style={style.chatNav}>
+
         <TouchableOpacity
           onPress={selectTranscript}
           style={
             transcriptActive
-              ? [style.groupActive, { borderColor: primaryColor }]
+              ? [style.groupActive, { borderTopColor: primaryColor, borderRightColor: primaryColor, borderLeftColor: primaryColor }]
               : [
                   style.group,
                   {
-                    borderColor: primaryColor,
+                    borderColor: insightActive? primaryColor : primaryColor + '80',
                     borderTopColor: primaryColor + '80',
+                    borderBottomColor: primaryColor
                   },
                 ]
           }
         >
-          <Text
-            style={transcriptActive ? style.groupTextActive : style.groupText}
-          >
+          <Text style={transcriptActive ? style.groupTextActive : style.groupText}>
             {TRANSCRIPT}
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={selectInsight}
           style={
             insightActive
-              ? [style.groupActive, { borderColor: primaryColor }]
+              ? [style.groupActive, { borderTopColor: primaryColor, borderRightColor: primaryColor, borderLeftColor: primaryColor }]
               : [
                   style.group,
                   {
-                    borderColor: primaryColor,
+                    borderLeftColor: transcriptActive? primaryColor : primaryColor + '80',
+                    borderRightColor: topicActive? primaryColor : primaryColor + '80',
                     borderTopColor: primaryColor + '80',
+                    borderBottomColor: primaryColor
                   },
                 ]
           }
@@ -254,16 +257,19 @@ export default function SymblTranscript(props: any) {
             {INSIGHTS}
           </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={selectTopic}
           style={
-            insightActive
-              ? [style.groupActive, { borderColor: primaryColor }]
+            topicActive
+              ? [style.groupActive, { borderTopColor: primaryColor, borderRightColor: primaryColor, borderLeftColor: primaryColor }]
               : [
                   style.group,
                   {
-                    borderColor: primaryColor,
+                    borderLeftColor: insightActive? primaryColor : primaryColor + '80',
+                    borderRightColor: primaryColor + '80',
                     borderTopColor: primaryColor + '80',
+                    borderBottomColor: primaryColor
                   },
                 ]
           }
@@ -390,7 +396,7 @@ const style = StyleSheet.create({
     borderBottomWidth: 2,
     borderTopColor: '#B4E1FF',
     borderRightWidth: 2,
-    borderColor: '#099DFD',
+    //borderColor: '#099DFD',
     height: '100%',
     textAlign: 'center',
   },
