@@ -2,9 +2,14 @@ import React, { useContext } from 'react';
 
 const Insights = ({ insights }) => {
   return insights.map((element) => {
+    // DISPLAY INSIGHT TITLE -- currently, Action Item, Follow-up and Question have been added conditionally, very simply. 
+    // An enhancement/better implementation would be to map <element.type> to its corresponding title and remove the nested conditions.
     return (
       <div style={styles.wrapper}>
-        <div style={styles.type}>{element.type}</div>
+        <div style={styles.type}>
+          {element.type=='action_item'? 
+            'Action Item' : (element.type == 'follow_up' ? 'Follow-Up' : 'Question')}
+        </div>
         <div style={styles.text}>{element.payload.content}</div>
         <div style={styles.date}>{new Date().toLocaleString()} </div>
       </div>
