@@ -29,7 +29,7 @@ Here are a few things that will help us help resolve your issues:
 Here are a few things you can do that will increase the likelihood of your pull request being accepted:
 
 - Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
-- Write a good commit message which descibe the changes.
+- Write a good commit message which describe the changes.
 
 ## Hacktoberfest
 
