@@ -33,6 +33,7 @@ import SymblTopicTagCloud from '../components/SymblTopicCloud/SymblTopicTagCloud
 import { useTranscript } from '../hooks';
 import Transcript from './Transcript';
 import Insights from './Insights';
+import NewRecordIndicator from './NewRecordIndicator/NewRecordIndicator';
 
 const cc = '';
 interface ccc {
@@ -104,6 +105,9 @@ export default function SymblTranscript(props: any) {
 
   const { transcriptItems, insights } = useTranscript();
 
+  const [newTranscriptsAvailable, setNewTranscriptsAvailable] = useState(false);
+  const [newInsightsAvailable, setNewInsightsAvailable] = useState(false);
+
   //////
 
   if (symbl != null) {
@@ -135,9 +139,8 @@ export default function SymblTranscript(props: any) {
       onCaptionUpdated: (caption) => {
         // Check if the video element is set correctly
 
-        const videoElementContainer = document.getElementsByClassName(
-          'main-stream-player',
-        )[0];
+        const videoElementContainer =
+          document.getElementsByClassName('main-stream-player')[0];
         const check = document.getElementById('test');
         console.log(getContent(caption));
         //cc.current=caption;
@@ -149,6 +152,9 @@ export default function SymblTranscript(props: any) {
   }
 
   //////
+
+  useEffect(() => setNewTranscriptsAvailable(!transcriptActive), [transcriptItems]);
+  useEffect(() => setNewInsightsAvailable(!insightActive), [insights]);
 
   useEffect(() => {
     setClosedCaptionResponse(cc);
@@ -179,6 +185,7 @@ export default function SymblTranscript(props: any) {
     setInsightActive(false);
     setTopicActive(false);
     setTabHeader(TRANSCRIPT);
+    setNewTranscriptsAvailable(false);
     console.log('intertranscript' + getInterTranscript());
   };
   const selectInsight = () => {
@@ -186,6 +193,7 @@ export default function SymblTranscript(props: any) {
     setTranscriptActive(false);
     setInsightActive(true);
     setTopicActive(false);
+    setNewInsightsAvailable(false);
     setTabHeader(INSIGHTS);
   };
   const selectTopic = () => {
@@ -230,6 +238,10 @@ export default function SymblTranscript(props: any) {
                 ]
           }
         >
+          <NewRecordIndicator
+            color={'green'}
+            show={!transcriptActive && newTranscriptsAvailable}
+          />
           <Text
             style={transcriptActive ? style.groupTextActive : style.groupText}
           >
@@ -250,6 +262,10 @@ export default function SymblTranscript(props: any) {
                 ]
           }
         >
+          <NewRecordIndicator
+            color={'orange'}
+            show={!insightActive && newInsightsAvailable}
+          />
           <Text style={insightActive ? style.groupTextActive : style.groupText}>
             {INSIGHTS}
           </Text>
