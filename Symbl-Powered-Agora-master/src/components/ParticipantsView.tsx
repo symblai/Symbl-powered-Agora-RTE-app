@@ -49,25 +49,46 @@ const ParticipantView = (props: any) => {
     variables: { passphrase: phrase },
   });
   const symblToken = window.localStorage.getItem('symblTokenBE');
+
+  const getMeetingDetailsWithFrontEndUrl = () => {
+    return `Meeting - ${data.share.title}
+    URL for Attendee: ${$config.frontEndURL}/${data.share.passphrase.view}
+    ${
+      props.isHost
+        ? `URL for Host: ${$config.frontEndURL}/${data.share.passphrase.host}`
+        : ''
+    }`;
+  };
+
+  const getMeetingDetailsForWeb = () => {
+    return `Meeting - ${data.share.title}
+    URL for Attendee: ${window.location.origin}/${data.share.passphrase.view}
+    ${
+      props.isHost
+        ? `URL for Host: ${window.location.origin}/${data.share.passphrase.host}`
+        : ''
+    }`;
+  };
+
+  const getMeetingDetailsWithMeetingId = () => {
+    return `Meeting - ${data.share.title}
+    Attendee Meeting ID: ${data.share.passphrase.view}
+    ${props.isHost ? `Host Meeting ID: ${data.share.passphrase.host}` : ''}`;
+  };
+
+  const getPSTNDetails = () => {
+    return `PSTN Number: ${data.share.pstn.number}
+    PSTN Pin: ${data.share.pstn.dtmf}`;
+  };
+
   const copyToClipboard = () => {
     if (data && !loading) {
-      let stringToCopy = '';
-      $config.frontEndURL
-        ? (stringToCopy += `Meeting - ${data.share.title}
-URL for Attendee: ${$config.frontEndURL}/${data.share.passphrase.view}
-URL for Host: ${$config.frontEndURL}/${data.share.passphrase.host}`)
+      let stringToCopy = $config.frontEndURL
+        ? getMeetingDetailsWithFrontEndUrl()
         : platform === 'web'
-        ? (stringToCopy += `Meeting - ${data.share.title}
-URL for Attendee: ${window.location.origin}/${data.share.passphrase.view}
-URL for Host: ${window.location.origin}/${data.share.passphrase.host}`)
-        : (stringToCopy += `Meeting - ${data.share.title}
-Attendee Meeting ID: ${data.share.passphrase.view}
-Host Meeting ID: ${data.share.passphrase.host}`);
-
-      data.share.pstn
-        ? (stringToCopy += `PSTN Number: ${data.share.pstn.number}
-PSTN Pin: ${data.share.pstn.dtmf}`)
-        : '';
+        ? getMeetingDetailsForWeb()
+        : getMeetingDetailsWithMeetingId();
+      stringToCopy += data.share.pstn ? getPSTNDetails() : '';
       console.log(stringToCopy);
       Clipboard.setString(stringToCopy);
     }
