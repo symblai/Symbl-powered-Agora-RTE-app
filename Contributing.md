@@ -43,7 +43,7 @@ This process here should be able to guide you on how to contribute effectively t
   ```
     git checkout -b feat/chore/bugs/fix/docs(just choose one)/branch-name
   ```
-- Make the original symbl-twilio-video-react repository the remote upstream (at upstream)
+- Make the original Symbl-powered-Agora-RTE-app repository the remote upstream (at upstream)
   ```
   git remote add upstream https://github.com/symblai/Symbl-powered-Agora-RTE-app.git
   ```
