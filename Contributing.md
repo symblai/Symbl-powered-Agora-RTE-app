@@ -18,7 +18,7 @@ Here are a few things that will help us help resolve your issues:
 
 ## IMPORTANT NOTICE
 
-## Symbl Twilio Video React
+## Symbl Powered Agora RTE App
 
 Please before you push your codes to the repository make sure you pull from the repository, so the changes that have been made can be reflected on your local machine, for us to avoid merge conflicts use the git command line
 
@@ -45,7 +45,7 @@ This process here should be able to guide you on how to contribute effectively t
   ```
 - Make the original symbl-twilio-video-react repository the remote upstream (at upstream)
   ```
-  git remote add upstream https://github.com/symblai/symbl-twilio-video-react.git
+  git remote add upstream https://github.com/symblai/Symbl-powered-Agora-RTE-app.git
   ```
 - To confirm the remote upstream/origin
 
@@ -74,7 +74,7 @@ This process here should be able to guide you on how to contribute effectively t
   git push origin your-branch-name
   ```
 
-Make your Pull request from that branch of your repository to the develop branch of this (symbl-twilio-video-react) repo and wait for it to be merged.
+Make your Pull request from that branch of your repository to the develop branch of this (symbl-powered-Agora-RTE-app) repo and wait for it to be merged.
 
 Write good commit messages, this is very important, so people reviewing can know what your fix, feature e.t.c. is doing.
 Your PR should carry the story / task URL (instruction from above).
