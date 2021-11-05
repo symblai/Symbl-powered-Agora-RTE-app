@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 
 const Transcript = ({ transcript }) => {
-  return transcript.map((element) => {
+  return transcript.map((element,index) => {
     return (
-      <div key={element.id} style={styles.wrapper}>
+      <div key={index} style={styles.wrapper}>
         <div style={styles.userName}> {element.userName}</div>
         <div style={styles.message}> {element.message} </div>
         <div style={styles.date}>

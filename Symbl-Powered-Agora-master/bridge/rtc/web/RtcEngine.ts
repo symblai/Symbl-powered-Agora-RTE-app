@@ -202,7 +202,10 @@ export default class RtcEngine {
     async muteLocalAudioStream(muted: boolean): Promise<void> {
         try {
             (this.streams.get(0) as AgoraRTC.Stream)[muted ? 'muteAudio' : 'unmuteAudio']();
-            this.symblSocket.mute(muted); console.log('conversation Id RTC' + this.symblSocket._conversationId + muted + JSON.stringify(this.symblSocket));
+            if (this.symblSocket) {
+                this.symblSocket.mute(muted);
+                console.log('conversation Id RTC' + this.symblSocket._conversationId + muted + JSON.stringify(this.symblSocket));
+            }
 
         }
         catch (e) {
@@ -293,13 +296,13 @@ export default class RtcEngine {
 
 
         }
-        this.symbl.stop();
-        this.symblSocket.stopRequest();
-        console.log(await this.symblSocket.close() + 'trying to close symbl socket');
-
-
-
-
+        if (this.symbl) {
+            this.symbl.stop();
+        }
+        if (this.symblSocket) {
+            this.symblSocket.stopRequest();
+            console.log(await this.symblSocket.close() + 'trying to close symbl socket');
+        }
     }
     async startScreenshare(token: string, channelName: string, optionalInfo: string, optionalUid: number, appId: string, engine: AgoraRTC, encryption: {screenKey: string; mode: 'aes-128-xts' | 'aes-256-xts' | 'aes-128-ecb'}): Promise<void> {
         if (!this.inScreenshare) {
