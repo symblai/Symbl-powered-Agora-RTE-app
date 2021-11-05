@@ -100,7 +100,8 @@ export class TranscriptItem {
   message: string = null; /** Content of the transcript **/
   userName: string = null; /** Name of the transcript speaker **/
   id: string = null; /** Transcript id **/
-  userId: string = null; /** Email address of the speaker for the transcript item **/
+  userId: string =
+    null; /** Email address of the speaker for the transcript item **/
   timeStamp: Date = new Date(); /** Time when the transcript was received **/
   dismissed: boolean;
   constructor(data: {
@@ -348,12 +349,15 @@ export class Caption {
     };
   } = null;
   userId: '865ca7f0-a880-73b6-4f6c-0c5a7e19bcac' = null;
-  element?: HTMLDivElement = null; /** Optional element used to superimpose captions over rather than the HTMLVideoElement **/
+  element?: HTMLDivElement =
+    null; /** Optional element used to superimpose captions over rather than the HTMLVideoElement **/
   name: string = '';
   captionNum: number = 0; /** Caption number **/
   textTrack: TextTrack = null; /** Text track used for closed captioning **/
-  _videoElementId: string = null; /** ID of the HTMLVideoElement the CC track will be added to **/
-  videoElement: HTMLVideoElement = null; /** Video element the closed-caption track is added to **/
+  _videoElementId: string =
+    null; /** ID of the HTMLVideoElement the CC track will be added to **/
+  videoElement: HTMLVideoElement =
+    null; /** Video element the closed-caption track is added to **/
   message: string = null; /** Caption content **/
   contentSpan: string = null; /** Finalized caption content **/
   static captionsEnabled: boolean = true;
@@ -512,7 +516,8 @@ export class SymblSocket {
   ws: WebSocket = null; /** The websocket connection **/
   connected: boolean = false; /** Whether the socket connection is open **/
   closed: boolean = true; /** Whether the socket connection is closed **/
-  requestStarted: boolean = false; /** Whether the initial start request has been made **/
+  requestStarted: boolean =
+    false; /** Whether the initial start request has been made **/
   credentials: any = false;
   _conversationId: string = null;
   gainNode: GainNode = null;
@@ -660,6 +665,7 @@ export class SymblSocket {
    * Sends a start request, that begins a recognition request.
    */
   startRequest(): void {
+    this.closed = false;
     console.info('Starting request');
     if (this.requestStarted) {
       console.info('Trying to start request. Must stop request first');
@@ -758,7 +764,9 @@ export class SymblSocket {
           console.info('Symbl Connection Closed', e);
           resolve('Closed');
         });
-        ws.close();
+        if (ws && ws.readyState === WebSocket.OPEN) {
+          ws.close();
+        }
       } else {
         reject('Failed to close websocket');
       }
@@ -767,7 +775,8 @@ export class SymblSocket {
 }
 
 export class Symbl {
-  static ACCESS_TOKEN: string = null; /** Access token generated using Symbl App ID and Secret **/
+  static ACCESS_TOKEN: string =
+    null; /** Access token generated using Symbl App ID and Secret **/
   static events: SymblEvents = symblEvents;
   static transcripts: Transcript = transcript;
   static state: string = 'DISCONNECTED'; /** State of Symbl's connectors **/
@@ -926,7 +935,7 @@ export class Symbl {
     }
     websocketOpened = true;
     const wsPromise = new Promise<SymblSocket>((resolve, reject) => {
-      if (ws) {
+      if (ws && ws.readyState === WebSocket.OPEN) {
         ws.close();
         ws = null;
       }
@@ -941,16 +950,18 @@ export class Symbl {
         Symbl.state = 'CONNECTED';
         console.log('Connection established.');
         symblSocket = new SymblSocket(this.config, this.credentials);
+        if (ws.readyState === WebSocket.OPEN) {
+          symblSocket.startRequest();
+        }
         resolve(symblSocket);
       };
     });
     try {
       await wsPromise;
+      return Promise.resolve(symblSocket);
     } catch (error) {
-      console.error('ERROR - failed to initialize websocket - ', error)
+      console.error('ERROR - failed to initialize websocket - ', error);
     }
-    symblSocket.startRequest();
-    return Promise.resolve(symblSocket);
   }
 
   /**
@@ -958,17 +969,20 @@ export class Symbl {
    * @return
    */
   stop(): void {
-    if (symblSocket) {
-      if (symblSocket.requestStarted) {
-        symblSocket.stopRequest();
-        symblSocket.close().then(() => {
+    if (symblSocket && symblSocket.requestStarted) {
+      symblSocket.stopRequest();
+      symblSocket
+        .close()
+        .then(() => {
           symblSocket = null;
-        });
-        console.log('inside symbl class stop.');
+        })
+        .catch((error) =>
+          console.error('Error while closing the socket', error),
+        );
+      console.log('inside symbl class stop.');
 
-        symblSocket = null;
-        symblSocket.ws = null;
-      }
+      symblSocket.ws = null;
+      symblSocket = null;
     }
   }
   /**
