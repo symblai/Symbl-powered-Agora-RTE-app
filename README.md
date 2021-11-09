@@ -57,7 +57,7 @@ Support for this application is available only for Chrome and Firefox.
 
 1. Get your Symbl credentials (`App Id` and `App Secret`) from the [Symbl Platform Console](https://platform.symbl.ai).
 
-2. Get your Agora credentials (`App Id`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
+2. Get your Agora credentials (`App Id` and `App Certificate`) from the [Agora Platform Console](https://console.agora.io/). See [here](https://www.agora.io/en/blog/how-to-get-started-with-agora/) for more information on how to do that.
 
 ### Setup the Database
 1. Download and install [PostgreSQL](https://www.postgresql.org/download/). You can follow these [steps to install PostgreSQL](https://www.postgresqltutorial.com/postgresql-getting-started/).
@@ -74,8 +74,14 @@ Support for this application is available only for Chrome and Firefox.
 "SYMBL_APPID": ""
 "SYMBL_SECRET": ""
 ``` 
+4. Add your Agora `App Id` and `App Certificate` values in the respective fields below:
 
-4. Open the file models/db.go and replace the following line (19) within the CreateDB function:
+``` 
+"APP_ID": "",
+"APP_CERTIFICATE": "",
+``` 
+
+5. Open the file models/db.go and replace the following line (19) within the CreateDB function:
 
 ```
 db, err := gorm.Open("postgres", os.Getenv("PG_DB_DETAILS"))
