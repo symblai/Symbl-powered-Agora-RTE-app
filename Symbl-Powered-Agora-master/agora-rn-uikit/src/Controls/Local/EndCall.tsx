@@ -20,6 +20,7 @@ function EndCall() {
           value: [],
         })
       }
+      title = {'Leave'}
     />
   );
 }

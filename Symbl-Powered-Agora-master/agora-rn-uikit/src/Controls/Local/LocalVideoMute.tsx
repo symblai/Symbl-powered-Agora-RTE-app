@@ -22,6 +22,7 @@ function LocalVideoMute() {
           value: [local.video],
         });
       }}
+      title = {local.video ? 'Video Off' : 'Video On'}
     />
   );
 }

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import icons from '../assets/icons';
 import RtcContext from '../../agora-rn-uikit/src/RtcContext';
 import PropsContext from '../../agora-rn-uikit/src/PropsContext';
@@ -49,6 +49,8 @@ const ScreenshareButton = (props: any) => {
         style={[style.buttonIcon, { tintColor: primaryColor }]}
         resizeMode={'contain'}
       />
+      <Text 
+        style={{backgroundColor: '#fff', width: 46}}>{ screenshareActive? 'Stop' : 'Start'}</Text>
     </TouchableOpacity>
   );
 };

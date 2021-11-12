@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import {
   View,
   Image,
+  Text,
   TouchableOpacity,
   Platform,
   StyleSheet,
@@ -50,6 +51,7 @@ const Controls = (props: any) => {
             source={{ uri: icons.closedCaption }}
             style={[style.buttonIcon, { tintColor: '' }]}
           />
+          <Text>Captions</Text>
         </TouchableOpacity>
         <LocalAudioMute />
 
@@ -85,6 +87,7 @@ const Controls = (props: any) => {
               source={{ uri: icons.chatIcon }}
               style={[style.buttonIcon, { tintColor: primaryColor }]}
             />
+            <Text>Chat</Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -100,6 +103,7 @@ const Controls = (props: any) => {
               source={{ uri: icons.symblIcon }}
               style={[style.buttonIcon, { tintColor: primaryColor }]}
             />
+            <Text>Insights</Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -117,6 +121,7 @@ const Controls = (props: any) => {
             source={{ uri: icons.summaryButton }}
             style={[style.buttonIcon, { tintColor: primaryColor }]}
           />
+          <Text>Summary</Text>
         </TouchableOpacity>
       </View>
     </LocalUserContext>

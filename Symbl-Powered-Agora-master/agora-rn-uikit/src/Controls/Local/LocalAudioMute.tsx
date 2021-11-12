@@ -22,6 +22,7 @@ function LocalAudioMute() {
           value: [local.audio],
         });
       }}
+      title = {local.audio? 'Mute': 'Unmute'}
     />
   );
 }
