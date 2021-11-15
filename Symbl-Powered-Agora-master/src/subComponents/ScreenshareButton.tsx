@@ -50,7 +50,7 @@ const ScreenshareButton = (props: any) => {
         resizeMode={'contain'}
       />
       <Text 
-        style={{backgroundColor: '#fff', width: 46}}>{ screenshareActive? 'Stop' : 'Start'}</Text>
+        style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>{ screenshareActive? 'Stop share' : 'Share'}</Text>
     </TouchableOpacity>
   );
 };
@@ -73,7 +73,7 @@ const style = StyleSheet.create({
     borderRadius: 2,
     borderColor: '#F86051',
     width: 46,
-    height: 46,
+    height: 54,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',

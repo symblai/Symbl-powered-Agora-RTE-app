@@ -43,7 +43,7 @@ const BtnTemplate: React.FC<BtnTemplateInterface> = (props) => {
         resizeMode={'contain'}
         source={{uri: icons[props.name]}}
       />
-      <Text>{props.title}</Text>
+      <Text style={{backgroundColor: '#fff', width: 70, textAlign: 'center'}}>{props.title}</Text>
     </TouchableOpacity>
   );
 };
