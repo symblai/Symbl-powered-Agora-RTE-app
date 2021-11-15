@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {
   TouchableOpacity,
   Image,
+  Text,
   StyleProp,
   TouchableOpacityProps,
   ViewStyle,
@@ -15,6 +16,7 @@ interface BtnTemplateInterface {
   color?: string;
   onPress?: TouchableOpacityProps['onPress'];
   style?: StyleProp<ViewStyle>;
+  title: string
 }
 
 const BtnTemplate: React.FC<BtnTemplateInterface> = (props) => {
@@ -41,6 +43,7 @@ const BtnTemplate: React.FC<BtnTemplateInterface> = (props) => {
         resizeMode={'contain'}
         source={{uri: icons[props.name]}}
       />
+      <Text style={{backgroundColor: '#fff', width: 70, textAlign: 'center'}}>{props.title}</Text>
     </TouchableOpacity>
   );
 };

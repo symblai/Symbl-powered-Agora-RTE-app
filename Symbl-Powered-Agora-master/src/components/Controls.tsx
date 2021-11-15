@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import {
   View,
   Image,
+  Text,
   TouchableOpacity,
   Platform,
   StyleSheet,
@@ -50,6 +51,10 @@ const Controls = (props: any) => {
             source={{ uri: icons.closedCaption }}
             style={[style.buttonIcon, { tintColor: '' }]}
           />
+          <Text
+            style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>
+            Captions
+          </Text>
         </TouchableOpacity>
         <LocalAudioMute />
 
@@ -85,6 +90,10 @@ const Controls = (props: any) => {
               source={{ uri: icons.chatIcon }}
               style={[style.buttonIcon, { tintColor: primaryColor }]}
             />
+            <Text
+              style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>
+              Chat
+            </Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -100,6 +109,10 @@ const Controls = (props: any) => {
               source={{ uri: icons.symblIcon }}
               style={[style.buttonIcon, { tintColor: primaryColor }]}
             />
+            <Text
+              style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>
+              Insights
+            </Text>
           </TouchableOpacity>
         ) : (
           <></>
@@ -117,6 +130,10 @@ const Controls = (props: any) => {
             source={{ uri: icons.summaryButton }}
             style={[style.buttonIcon, { tintColor: primaryColor }]}
           />
+          <Text
+            style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>
+            Summary
+          </Text>
         </TouchableOpacity>
       </View>
     </LocalUserContext>
@@ -150,6 +167,7 @@ const style = StyleSheet.create({
   buttonIcon: {
     width: 35,
     height: 35,
+    
     tintColor: '#099DFD',
   },
 });
