@@ -50,7 +50,7 @@ const ScreenshareButton = (props: any) => {
         resizeMode={'contain'}
       />
       <Text 
-        style={{backgroundColor: '#fff', width: 70, textAlign: 'center', paddingTop: 9}}>{ screenshareActive? 'Stop share' : 'Share'}</Text>
+        style={{backgroundColor: '#fff', width: 75, textAlign: 'center', paddingTop: 9}}>{ screenshareActive? 'Stop share' : 'Start share'}</Text>
     </TouchableOpacity>
   );
 };
